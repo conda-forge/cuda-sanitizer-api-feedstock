@@ -1,6 +1,6 @@
 {% set name = "cuda-sanitizer-api" %}
-{% set version = "12.0.90" %}
-{% set cuda_version = "12.0" %}
+{% set version = "12.1.105" %}
+{% set cuda_version = "12.1" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -14,10 +14,10 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/cuda_sanitizer_api/{{ platform }}/cuda_sanitizer_api-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: 80e23d82bf4a0bb79c564104121467bd0d15f0142e1dc4fff36bb491bc4b3d4f  # [linux64]
-  sha256: 50d66cab58c7b8aa8473b36844669ee2ea7fc85ad92d49473b30214de22c2d25  # [ppc64le]
-  sha256: c872f56fa4a0ce50f8acf5f154d73d0c7a3290e9fa7ffa0b368fbdae3d1435b9  # [aarch64]
-  sha256: cdb48694de35aed5576aaf81f2443d12791a346d7a186e2c37e7606e252ef4e4  # [win]
+  sha256: dfa911da08c37bd521b993bf35c26a9975c4737c77fd8eea92af23be13afa602  # [linux64]
+  sha256: e38e89cd64d5e63223fee80d8d5f61b5329c42f84a41b27d5348b6824f9be1c2  # [ppc64le]
+  sha256: a03f9530b695114c56fdc8ee9fd3cf004697aef7faec9dc025d0985020562687  # [aarch64]
+  sha256: 40d6e1620ed8d2437cc92183ea5758f88e6106ba82260a4c6597a016d98bfec7  # [win]
 
 build:
   number: 0
@@ -59,4 +59,4 @@ about:
 
 extra:
   recipe-maintainers:
-    - adibbley
+    - conda-forge/cuda

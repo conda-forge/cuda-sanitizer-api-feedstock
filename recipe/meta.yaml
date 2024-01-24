@@ -21,6 +21,7 @@ source:
 
 build:
   number: 0
+  binary_relocation: false
   skip: true  # [osx]
   missing_dso_whitelist:
     - '$RPATH/libInterceptorInjectionTarget.so'  # [linux]

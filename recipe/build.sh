@@ -10,5 +10,14 @@ for i in `ls`; do
     [[ $i == "build_env_setup.sh" ]] && continue
     [[ $i == "conda_build.sh" ]] && continue
     [[ $i == "metadata_conda_debug.yaml" ]] && continue
-    cp -r $i ${PREFIX}
+    cp -rv $i ${PREFIX}
+
+    if [[ $i == "compute-sanitizer" ]]; then
+        for j in `ls $i`; do
+            [[ -d $PREFIX/$i/$j ]] && continue
+            [[ $j == "compute-sanitizer" ]] && continue
+
+            patchelf --set-rpath '$ORIGIN/../lib' $PREFIX/$i/$j
+        done
+    fi
 done

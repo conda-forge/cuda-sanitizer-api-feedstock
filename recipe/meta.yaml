@@ -1,6 +1,6 @@
 {% set name = "cuda-sanitizer-api" %}
-{% set version = "12.2.140" %}
-{% set cuda_version = "12.2" %}
+{% set version = "12.3.101" %}
+{% set cuda_version = "12.3" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -14,13 +14,14 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/cuda_sanitizer_api/{{ platform }}/cuda_sanitizer_api-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: 1d02913ab7a1389a13b4f66479be73fe6391df29a53123cf86efba5f88e991d2  # [linux64]
-  sha256: 5f37b3d901403094c68b2bdbc34381f3daaae7504fc92e5e8ab8feefe196f2b2  # [ppc64le]
-  sha256: a16ca8a7283b4eb074ee878fc44c85dab8946ed6d2ff6a8893c409ebff3c8e3e  # [aarch64]
-  sha256: 1c1d84647d331759bbed4ef820e3ad26866af7383ddcc0ba02d695b9886d7820  # [win]
+  sha256: e65b92b71467efc156bbc3d1ebaf5b14dfbc4e9f269ab2995a37bbf84530666c  # [linux64]
+  sha256: 869d2dc46a291686f8c40f3b98232cddd85e4696be0d7e119ce92ec46e330590  # [ppc64le]
+  sha256: c01d0b46a50e50292afcca33a3b768a900500d5b442925452801331ee0a61644  # [aarch64]
+  sha256: 8674b7e74d20ec9dc7566b9fa72a8ff1b4713c400000021d81d10e7497bc86d8  # [win]
 
 build:
   number: 0
+  binary_relocation: false
   skip: true  # [osx]
   missing_dso_whitelist:
     - '$RPATH/libInterceptorInjectionTarget.so'  # [linux]
@@ -30,7 +31,9 @@ requirements:
   build:
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
+    - sysroot_{{ target_platform }} 2.17    # [linux]
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
+    - patchelf <0.18.0                      # [linux]
   host:
     - cuda-version {{ cuda_version }}
   run:
@@ -43,7 +46,7 @@ test:
     - test -f $PREFIX/bin/compute-sanitizer                                         # [linux]
     - test -f $PREFIX/compute-sanitizer/compute-sanitizer                           # [linux]
     - if not exist %LIBRARY_PREFIX%\compute-sanitizer\compute-sanitizer.exe exit 1  # [win]
-    - if not exist %PREFIX%\Scripts\compute-sanitizer.bat exit 1                           # [win]
+    - if not exist %PREFIX%\Scripts\compute-sanitizer.bat exit 1                    # [win]
     - compute-sanitizer --version
 
 about:

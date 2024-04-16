@@ -7,6 +7,8 @@
 {% set platform = "windows-x86_64" %}  # [win]
 {% set extension = "tar.xz" %}  # [not win]
 {% set extension = "zip" %}  # [win]
+{% set exists = "which" %}  # [not win]
+{% set exists = "where" %}  # [win]
 
 package:
   name: {{ name|lower }}
@@ -20,7 +22,7 @@ source:
   sha256: f15613b7c3088299659356456abfe2c3a98eed7eea9d8292fe0ec46726f5ec73  # [win]
 
 build:
-  number: 0
+  number: 1
   binary_relocation: false
   skip: true  # [osx]
   missing_dso_whitelist:
@@ -47,7 +49,8 @@ test:
     - test -f $PREFIX/compute-sanitizer/compute-sanitizer                           # [linux]
     - if not exist %LIBRARY_PREFIX%\compute-sanitizer\compute-sanitizer.exe exit 1  # [win]
     - if not exist %PREFIX%\Scripts\compute-sanitizer.bat exit 1                    # [win]
-    - compute-sanitizer --version
+    - {{ exists }} compute-sanitizer
+    - compute-sanitizer --version                                                   # [build_platform == target_platform]
 
 about:
   home: https://docs.nvidia.com/compute-sanitizer/SanitizerApiGuide/index.html

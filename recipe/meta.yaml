@@ -50,7 +50,7 @@ test:
     - if not exist %LIBRARY_PREFIX%\compute-sanitizer\compute-sanitizer.exe exit 1  # [win]
     - if not exist %PREFIX%\Scripts\compute-sanitizer.bat exit 1                    # [win]
     - {{ exists }} compute-sanitizer
-    - compute-sanitizer --version
+    - compute-sanitizer --version                                                   # [build_platform == target_platform]
 
 about:
   home: https://docs.nvidia.com/compute-sanitizer/SanitizerApiGuide/index.html

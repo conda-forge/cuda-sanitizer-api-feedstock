@@ -17,7 +17,7 @@ for i in `ls`; do
             [[ -d $PREFIX/$i/$j ]] && continue
             [[ $j == "compute-sanitizer" ]] && continue
 
-            patchelf --set-rpath '$ORIGIN/../lib' $PREFIX/$i/$j
+            patchelf --set-rpath '$ORIGIN/../lib' --force-rpath $PREFIX/$i/$j
         done
     fi
 done

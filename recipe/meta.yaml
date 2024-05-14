@@ -44,11 +44,16 @@ requirements:
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
 
 test:
+  requires:
+    - patchelf       # [linux]
+  files:
+    - test-rpath.sh  # [linux]
   commands:
     - test -f $PREFIX/bin/compute-sanitizer                                         # [linux]
     - test -f $PREFIX/compute-sanitizer/compute-sanitizer                           # [linux]
     - if not exist %LIBRARY_PREFIX%\compute-sanitizer\compute-sanitizer.exe exit 1  # [win]
     - if not exist %PREFIX%\Scripts\compute-sanitizer.bat exit 1                    # [win]
+    - bash test-rpath.sh                                                            # [linux]
     - {{ exists }} compute-sanitizer
     - compute-sanitizer --version                                                   # [build_platform == target_platform]
 

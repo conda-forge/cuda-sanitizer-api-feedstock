@@ -22,7 +22,7 @@ source:
   sha256: f15613b7c3088299659356456abfe2c3a98eed7eea9d8292fe0ec46726f5ec73  # [win]
 
 build:
-  number: 2
+  number: 3
   binary_relocation: false
   skip: true  # [osx]
   missing_dso_whitelist:
@@ -44,11 +44,16 @@ requirements:
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
 
 test:
+  requires:
+    - patchelf       # [linux]
+  files:
+    - test-rpath.sh  # [linux]
   commands:
     - test -f $PREFIX/bin/compute-sanitizer                                         # [linux]
     - test -f $PREFIX/compute-sanitizer/compute-sanitizer                           # [linux]
     - if not exist %LIBRARY_PREFIX%\compute-sanitizer\compute-sanitizer.exe exit 1  # [win]
     - if not exist %PREFIX%\Scripts\compute-sanitizer.bat exit 1                    # [win]
+    - bash test-rpath.sh                                                            # [linux]
     - {{ exists }} compute-sanitizer
     - compute-sanitizer --version                                                   # [build_platform == target_platform]
 

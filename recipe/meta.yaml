@@ -1,6 +1,6 @@
 {% set name = "cuda-sanitizer-api" %}
-{% set version = "12.4.127" %}
-{% set cuda_version = "12.4" %}
+{% set version = "12.5.39" %}
+{% set cuda_version = "12.5" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -16,15 +16,14 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/cuda_sanitizer_api/{{ platform }}/cuda_sanitizer_api-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: b719c6b2a8cd330ab0e4361e41dda5493946fb7fa0c4b04c8dbd776fadc3b11b  # [linux64]
-  sha256: 5ceae6170471d7a9e4540796760642747d10d7d4f609dacede90f84927e59618  # [ppc64le]
-  sha256: 0e5ff35535ecb1ed0b482a2ac5e3a20e94722736f023fc802cbfd4900e590746  # [aarch64]
-  sha256: f15613b7c3088299659356456abfe2c3a98eed7eea9d8292fe0ec46726f5ec73  # [win]
+  sha256: 31550666886b39ca15991d6ecdb409d6c18215ccfa60f5d3b692a5d3366cd856  # [linux64]
+  sha256: 9daef1f0c56f624fcaa2a39ae202cb92e114eaec3580b20d0da88d739ca4bf9a  # [aarch64]
+  sha256: 0e458e89bb7662b65e8c2f0bf4e15747fd9cb2e3df219661df1343fe53d406dd  # [win]
 
 build:
-  number: 2
+  number: 0
   binary_relocation: false
-  skip: true  # [osx]
+  skip: true  # [osx or ppc64le]
   missing_dso_whitelist:
     - '$RPATH/libInterceptorInjectionTarget.so'  # [linux]
     - '$RPATH/InterceptorInjectionTarget.dll'    # [win]

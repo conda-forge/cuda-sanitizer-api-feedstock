@@ -1,6 +1,6 @@
 {% set name = "cuda-sanitizer-api" %}
-{% set version = "12.5.81" %}
-{% set cuda_version = "12.5" %}
+{% set version = "12.6.34" %}
+{% set cuda_version = "12.6" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -16,12 +16,12 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/cuda_sanitizer_api/{{ platform }}/cuda_sanitizer_api-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: 2c86bd1b37bc9b085914076e0db0122c667da32aa62463edd8bdcfc047eb10e3  # [linux64]
-  sha256: f76b88164b0642ddf6ff80031ed35bd3b851512b8af405cf6838351c518a8000  # [aarch64]
-  sha256: 09a8e3438cae3a2f391f3befe7d092bfd2c2157ec4383e5494a2904a2d708ca3  # [win]
+  sha256: c7c11f19000b06fa722dc601eeb63ae947cb431cbf2bc47f6e20623977026804  # [linux64]
+  sha256: 32c5b3ab3e98d0539abaedf24f2339bddbee50fc3d13fec79be6328e747ed737  # [aarch64]
+  sha256: c03df7f2f82653d19fcaa391fd27ab135eada49f037b07a217b5e65e6b9722de  # [win]
 
 build:
-  number: 1
+  number: 0
   binary_relocation: false
   skip: true  # [osx or ppc64le]
   missing_dso_whitelist:

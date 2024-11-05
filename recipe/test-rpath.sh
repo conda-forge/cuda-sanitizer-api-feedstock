@@ -29,13 +29,13 @@ for item in `find $PREFIX/compute-sanitizer/ -type f`; do
     echo "${item} rpath: ${rpath}"
 
     if [[ ${filename} =~ \.so($|\.) ]]; then
-	if [[ $rpath != "\$ORIGIN" ]]; then # DSO lib
+        if [[ $rpath != "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" ]]; then # DSO lib
             errors+="${item}\n"
-	fi
+        fi
     elif [[ ${filename} == "compute-sanitizer" || ${filename} == "TreeLauncherSubreaper" || ${filename} == "TreeLauncherTargetLdPreloadHelper" ]]; then
-	if [[ $rpath != "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" ]]; then
+        if [[ $rpath != "\$ORIGIN/../lib" ]]; then
             errors+="${item}\n"
-	fi
+        fi
     else # unexpected/unaccounted file
         errors+="${item}\n"
     fi

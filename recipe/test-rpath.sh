@@ -33,7 +33,7 @@ for item in `find $PREFIX/compute-sanitizer/ -type f`; do
             errors+="${item}\n"
         fi
     elif [[ ${filename} == "compute-sanitizer" || ${filename} == "TreeLauncherSubreaper" || ${filename} == "TreeLauncherTargetLdPreloadHelper" ]]; then
-        if [[ $rpath != "\$ORIGIN/../lib" ]]; then
+        if [[ $rpath != "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" ]]; then
             errors+="${item}\n"
         fi
     else # unexpected/unaccounted file

@@ -22,8 +22,8 @@ for i in `ls`; do
             [[ -d $PREFIX/$i/$j ]] && continue
 
             if [[ $j == "compute-sanitizer" || $j == "TreeLauncherSubreaper" || $j == "TreeLauncherTargetLdPreloadHelper" ]]; then
-                echo patchelf --force-rpath --set-rpath "\$ORIGIN/../lib" $PREFIX/$i/$j
-                patchelf --force-rpath --set-rpath "\$ORIGIN/../lib" $PREFIX/$i/$j
+                echo patchelf --force-rpath --set-rpath "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" $PREFIX/$i/$j
+                patchelf --force-rpath --set-rpath "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" $PREFIX/$i/$j
             elif [[ $j =~ \.so($|\.) ]]; then
                 echo patchelf --force-rpath --set-rpath '$ORIGIN/../lib:$ORIGIN/../${targetsDir}/lib' $PREFIX/$i/$j
                 patchelf --force-rpath --set-rpath "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" $PREFIX/$i/$j

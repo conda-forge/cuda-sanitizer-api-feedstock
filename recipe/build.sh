@@ -29,8 +29,6 @@ for i in `ls`; do
             elif [[ $j =~ \.so($|\.) ]]; then
                 echo patchelf --force-rpath --set-rpath '$ORIGIN/../lib:$ORIGIN/../${targetsDir}/lib' $PREFIX/$i/$j
                 patchelf --force-rpath --set-rpath "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" $PREFIX/$i/$j
-                # ${PREFIX}/lib should exist but create it in case it does not
-                mkdir -p ${PREFIX}/lib
                 mkdir -p ${PREFIX}/$i
                 # Shared libraries are symlinked in $PREFIX/lib
                 ln -svf ${PREFIX}/$i/$j ${PREFIX}/lib/$j

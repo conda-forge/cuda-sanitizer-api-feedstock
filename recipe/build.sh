@@ -21,9 +21,8 @@ for i in `ls`; do
 
     if [[ $i == "compute-sanitizer" ]]; then
         for j in `ls $i`; do
-            [[ -d $PREFIX/$i/$j ]] && continue
-
-            if [[ $j == "compute-sanitizer" || $j == "TreeLauncherSubreaper" || $j == "TreeLauncherTargetLdPreloadHelper" ]]; then
+            # Patch `$PREFIX/compute-santizer/`'s executables to search for libraries in `$PREFIX/lib` and  `$PREFIX/${targetsDir}/lib`
+            if [[ -f "$PREFIX/$i/$j" && -x $(realpath "$PREFIX/$i/$j") ]]; then
                 echo patchelf --force-rpath --set-rpath "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" $PREFIX/$i/$j
                 patchelf --force-rpath --set-rpath "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" $PREFIX/$i/$j
             elif [[ $j =~ \.so($|\.) ]]; then

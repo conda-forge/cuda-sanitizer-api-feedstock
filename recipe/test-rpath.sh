@@ -32,7 +32,8 @@ for item in `find $PREFIX/compute-sanitizer/ -type f`; do
         if [[ $rpath != "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" ]]; then # DSO lib
             errors+="${item}\n"
         fi
-    elif [[ ${filename} == "compute-sanitizer" || ${filename} == "TreeLauncherSubreaper" || ${filename} == "TreeLauncherTargetLdPreloadHelper" ]]; then
+    elif [[ -f "$item" && -x $(realpath "$item") ]]; then
+        # Check `$PREFIX/compute-santizer/`'s executables
         if [[ $rpath != "\$ORIGIN/../lib:\$ORIGIN/../${targetsDir}/lib" ]]; then
             errors+="${item}\n"
         fi
@@ -46,7 +47,7 @@ for item in `find $PREFIX/compute-sanitizer/ -type f`; do
 done
 
 if [[ $errors ]]; then
-    echo "The following binaries were found with an unexpected RPATH:"
+    echo "The following files were either no executable, or found with an unexpected RPATH:"
     echo -e "${errors}"
     exit 1
 fi

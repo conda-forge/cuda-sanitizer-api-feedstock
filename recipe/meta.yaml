@@ -21,7 +21,7 @@ source:
   sha256: 0b0dd24ebdf0ab1c6508df609723629e24821e882267823a6fa5753791fd9230  # [win]
 
 build:
-  number: 0
+  number: 1
   binary_relocation: false
   skip: true  # [osx or ppc64le]
   missing_dso_whitelist:
@@ -35,6 +35,7 @@ requirements:
     - {{ stdlib("c") }}
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
     - patchelf <0.18.0                      # [linux]
+    - cf-nvidia-tools 1  # [linux]
   host:
     - cuda-version {{ cuda_version }}
   run:

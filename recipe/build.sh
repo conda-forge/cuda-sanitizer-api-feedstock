@@ -35,3 +35,5 @@ for i in `ls`; do
         done
     fi
 done
+
+check-glibc "$PREFIX"/compute-sanitizer/*

@@ -3,8 +3,11 @@
 {% set cuda_version = "12.9" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
-{% set platform = "linux-sbsa" %}  # [aarch64]
+{% set platform = "linux-sbsa" %}  # [aarch64 and arm_variant_type=="sbsa"]
+{% set platform = "linux-aarch64" %}  # [aarch64 and arm_variant_type=="tegra"]
 {% set platform = "windows-x86_64" %}  # [win]
+{% set target_name = "sbsa-linux" %}  # [aarch64 and arm_variant_type=="sbsa"]
+{% set target_name = "aarch64-linux" %}  # [aarch64 and arm_variant_type=="tegra"]
 {% set extension = "tar.xz" %}  # [not win]
 {% set extension = "zip" %}  # [win]
 {% set exists = "which" %}  # [not win]
@@ -17,11 +20,12 @@ package:
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/cuda_sanitizer_api/{{ platform }}/cuda_sanitizer_api-{{ platform }}-{{ version }}-archive.{{ extension }}
   sha256: e23aad21132ff58b92a22aad372a7048793400b79c625665d325d4ecec6979bf  # [linux64]
-  sha256: 281538927b6818d4687fad102c0603ab7b389513c9c129f3e0de8c61ac7f474d  # [aarch64]
+  sha256: 281538927b6818d4687fad102c0603ab7b389513c9c129f3e0de8c61ac7f474d  # [aarch64 and arm_variant_type=="sbsa"]
+  sha256: 2baaba3ff47eceb529ddcc866fc7e647fd02427ef3dbb8bec06689f919c14c69  # [aarch64 and arm_variant_type=="tegra"]
   sha256: b1f366312cb52164dfe7b78463ab085b742f052e74b89e9da08561a8ca8b06e9  # [win]
 
 build:
-  number: 0
+  number: 1
   binary_relocation: false
   skip: true  # [osx or ppc64le]
   missing_dso_whitelist:
@@ -40,7 +44,6 @@ requirements:
     - cuda-version {{ cuda_version }}
   run:
     - {{ pin_compatible("cuda-version", max_pin="x.x") }}
-  run_constrained:
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
 
 test:

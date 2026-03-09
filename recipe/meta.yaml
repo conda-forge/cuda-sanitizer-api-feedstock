@@ -1,6 +1,6 @@
 {% set name = "cuda-sanitizer-api" %}
-{% set version = "13.1.118" %}
-{% set cuda_version = "13.1" %}
+{% set version = "13.2.23" %}
+{% set cuda_version = "13.2.0" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -16,9 +16,9 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/cuda_sanitizer_api/{{ platform }}/cuda_sanitizer_api-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: b9637777a31cd0f0ffe1e965523e8b0d382019b8496855fd688c886988583cf4  # [linux64]
-  sha256: 1dc68ccb146032bcdc9d932569c865d68e3966ecf136940ca38fd7d5abfda4ac  # [aarch64]
-  sha256: 9eeb3b8cf7a62d9af40278c52feecc32c57c90e93a163a05112476b436e3575f  # [win]
+  sha256: cd283331a133e19dd974f7b472c3f5970289b065bbf69c92924189387eefa34a  # [linux64]
+  sha256: 612280e260d8d1e7846c1990dd16080f8d7247cc629434483ac2f4c086f95c12  # [aarch64]
+  sha256: 6e72ae25bc47b058b0f77b046e7cfa414349dd27bf1d355bbb4d27155d2a172c  # [win]
 
 build:
   number: 0

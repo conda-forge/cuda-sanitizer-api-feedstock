@@ -16,6 +16,7 @@ for i in `ls`; do
     [[ $i == "build_env_setup.sh" ]] && continue
     [[ $i == "conda_build.sh" ]] && continue
     [[ $i == "metadata_conda_debug.yaml" ]] && continue
+    [[ $i == "LICENSE" ]] && continue
 
     cp -rv $i ${PREFIX}
 

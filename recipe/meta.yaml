@@ -1,5 +1,5 @@
 {% set name = "cuda-sanitizer-api" %}
-{% set version = "13.4.57" %}
+{% set version = "13.4.92" %}
 {% set cuda_version = "13.4" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
@@ -10,10 +10,10 @@
 {% set extension = "zip" %}  # [win]
 {% set exists = "which" %}  # [not win]
 {% set exists = "where" %}  # [win]
-{% set sha256 = "443465d4dcb77f45a2eb2c9adf2d1e0d7b4d0966ce84acf6d89b4c555bd55f5b" %}  # [linux64]
-{% set sha256 = "275928dee0c2c61316a61faeb7a2930de60a986e005b7d1c25e861a4ecb9fd13" %}  # [aarch64]
-{% set sha256 = "8a1af222f79e3ee1a6539dc9d59825685e0361f03a752fc50ab62a8e34fd9a77" %}  # [win64]
-{% set sha256 = "39fea12b65c9a17932f680fa6245d3cbf5fb8fb78665becd3357c924b6956d60" %}  # [win and arm64]
+{% set sha256 = "bf5303fe49d8ab871876213a7a2cf9ebe844406a293dbd05cd327f52c976a726" %}  # [linux64]
+{% set sha256 = "b422bd263ec671fd3217f8329fa81423befe64e81332773af1a52df7819f63d7" %}  # [aarch64]
+{% set sha256 = "ba48ca20d184ba0460558e8f30dd40350f001ede230ce24be62b28d20f97d17d" %}  # [win64]
+{% set sha256 = "89fe798276056887b0115baef937c9cd893e23950ba7a81471879f814ee62ce7" %}  # [win and arm64]
 
 package:
   name: {{ name|lower }}
@@ -24,7 +24,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 0
   binary_relocation: false
   skip: true  # [osx or ppc64le]
   missing_dso_whitelist:

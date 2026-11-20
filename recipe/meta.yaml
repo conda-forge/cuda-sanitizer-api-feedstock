@@ -24,7 +24,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   binary_relocation: false
   skip: true  # [osx or ppc64le]
   missing_dso_whitelist:
@@ -37,7 +37,7 @@ requirements:
     - {{ compiler("cxx") }}
     - {{ stdlib("c") }}
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
-    - patchelf <0.18.0                      # [linux]
+    - patchelf 0.19.3                       # [linux]
     - cf-nvidia-tools 1  # [linux]
   host:
     - cuda-version {{ cuda_version }}
@@ -51,12 +51,14 @@ test:
     - patchelf       # [linux]
   files:
     - test-rpath.sh  # [linux]
+    - test-protobuf-descriptors.sh  # [linux]
   commands:
     - test -f $PREFIX/bin/compute-sanitizer                                         # [linux]
     - test -f $PREFIX/compute-sanitizer/compute-sanitizer                           # [linux]
     - if not exist %LIBRARY_PREFIX%\compute-sanitizer\compute-sanitizer.exe exit 1  # [win]
     - if not exist %PREFIX%\Scripts\compute-sanitizer.bat exit 1                    # [win]
     - bash test-rpath.sh                                                            # [linux]
+    - bash test-protobuf-descriptors.sh                                             # [linux and build_platform == target_platform]
     - {{ exists }} compute-sanitizer
     - compute-sanitizer --version                                                   # [build_platform == target_platform]
 
